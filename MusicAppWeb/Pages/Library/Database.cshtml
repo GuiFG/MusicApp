@@ -1,0 +1,37 @@
+@page
+@model MusicAppWeb.Pages.Library.DatabaseModel
+<partial name="_NavigationLibrary.cshtml"></partial>
+
+<div class="container my-3" data-aos="fade-down" data-aos-duration="1000">
+    <table id="idTable" class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Time</th>
+                <th>Played</th>
+                <th>Likes</th>
+                <th>Created Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var music in @Model.musics)
+            {
+                <tr>
+                    <td>@music.Name</td>
+                    <td>@music.Time</td>
+                    <td>@music.Played</td>
+                    <td>@music.Likes</td>
+                    <td>@music.CreatedDate</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+<partial name="_SideBar"></partial>
+
+
+@section Scripts {
+	<script src="~/js/Library/database.js"></script>
+}

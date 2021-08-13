@@ -1,24 +1,21 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
 namespace MusicAppWeb.Pages.Home
 {
+    [Authorize]
     public class IndexHomeModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
 
-        public IndexHomeModel(ILogger<IndexModel> logger)
+        public IndexHomeModel()
         {
-            _logger = logger;
         }
 
         public IActionResult OnGet()
         {
+            TempData["messageSuccess"] = "ola que tal";
             return Page();
         }
     }

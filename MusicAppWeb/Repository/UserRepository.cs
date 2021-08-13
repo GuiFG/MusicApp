@@ -1,6 +1,6 @@
 using System;
 using System.Text;
-using System.Configuration;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Net.Http;
 using Microsoft.Extensions.Configuration;
@@ -24,12 +24,13 @@ namespace MusicAppWeb.Repository
         public async Task<User> Authenticate(User user)
         {
             try 
-            {    
+            {   
+                user.Password = GenerateHash(user.Password);
+                
                 string content = JsonConvert.SerializeObject(user);
                 var httpContent = new StringContent(content, Encoding.UTF8, "application/json");
         
                 var response = await _client.PostAsync(_url + UrlApi.User.Authenticate, httpContent);
-                Console.WriteLine(response);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -50,7 +51,9 @@ namespace MusicAppWeb.Repository
         public async Task<User> SignUp(User user)
         {
             try 
-            {    
+            {   
+                user.Password = GenerateHash(user.Password);
+
                 string content = JsonConvert.SerializeObject(user);
                 var httpContent = new StringContent(content, Encoding.UTF8, "application/json");
 
@@ -69,6 +72,22 @@ namespace MusicAppWeb.Repository
             {
                 Console.WriteLine(ex.InnerException.Message);
                 return null;   
+            }
+        }
+
+        private string GenerateHash(string input)
+        {
+            using (SHA1Managed sha1 = new SHA1Managed())
+            {
+                var hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(input));
+                var sb = new StringBuilder(hash.Length * 2);
+
+                foreach (byte b in hash)
+                {
+                    sb.Append(b.ToString("x2"));
+                }
+
+                return sb.ToString();
             }
         }
     }

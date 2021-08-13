@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace MusicAppApi.Entities 
+namespace MusicAppApi.Model 
 {
     public class User 
     {

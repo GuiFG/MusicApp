@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using MusicAppApi.Entities;
+using MusicAppApi.Model;
 
-namespace MusicAppApi.Services
+namespace MusicAppApi.Contracts
 {
     public interface IUserRepository 
     {

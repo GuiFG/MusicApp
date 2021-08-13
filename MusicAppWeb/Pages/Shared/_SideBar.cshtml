@@ -1,13 +1,10 @@
 <link rel="stylesheet" href="~/css/Sidebar/sidebar.css">
 
-<div id="mySidebar" class="sidebar" data-aos-duration="600" data-aos="fade-right">
+<div class="sidebar" data-aos-duration="600" data-aos="fade-right">
   <a asp-page="/Home/Index"><i class="fas fa-home mr-3"></i>Home</a>
   <a asp-page="/Library/Playlists"><i class="fas fa-swatchbook mr-3"></i>Your Library</a>
   <br>
-  <a href="#"><i class="far fa-plus-square mr-3"></i>Create Playlist</a>
+  <a asp-page="/Musics/Playlist"><i class="far fa-plus-square mr-3"></i>Create Playlist</a>
   <hr>
-  <ul id="listPlaylists">
-    <li><span>Playlist one</span></li>
-  </ul>
 
 </div>

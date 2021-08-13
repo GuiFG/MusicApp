@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using MusicAppApi.Entities;
+using MusicAppApi.Model;
 
 namespace MusicAppApi.Services 
 {
@@ -11,5 +11,6 @@ namespace MusicAppApi.Services
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Music> Musics { get; set; }
     }
 }

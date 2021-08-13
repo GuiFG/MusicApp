@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MusicAppWeb.Contracts;
 using MusicAppWeb.Repository;
+using MusicAppWeb.Model;
 
 namespace MusicAppWeb
 {
@@ -27,7 +28,15 @@ namespace MusicAppWeb
         {
             services.AddRazorPages();
 
+            services.AddAuthentication(Auth.TokenName)
+                .AddCookie(Auth.TokenName, options =>
+                {
+                    options.Cookie.Name = Auth.TokenName;
+                    options.LoginPath = "/Login/SignIn";
+                });
+
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IMusicRepository, MusicRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +58,7 @@ namespace MusicAppWeb
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

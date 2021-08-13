@@ -8,5 +8,11 @@ namespace MusicAppWeb.Model
             public const string SignUp = "/users";
         }
 
+        public static class Music 
+        {
+            public const string Upload = "/musics/upload";
+            public const string GetAll = "/musics";
+        }
+
     }
 }

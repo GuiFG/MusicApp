@@ -1,9 +1,12 @@
 using System;
 using System.Linq;
+using System.Text;
+using System.Security.Cryptography;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MusicAppApi.Services;
-using MusicAppApi.Entities;
+using MusicAppApi.Model;
+using MusicAppApi.Contracts;
 
 namespace MusicAppApi.Repository 
 {
@@ -20,10 +23,10 @@ namespace MusicAppApi.Repository
             try
             {
                 var users = await Task.Run(() => 
-                                _context.Users
-                                .OrderBy(u => u.Id)
-                                .ToList()
-                            );
+                    _context.Users
+                    .OrderBy(u => u.Id)
+                    .ToList()
+                );
 
                 return users;
             }
@@ -50,6 +53,7 @@ namespace MusicAppApi.Repository
             try
             {
                 User user = new User();
+                password = GenerateHash(password);
                 await Task.Run(() => 
                     {
                             user = _context.Users.Where(u => 
@@ -83,6 +87,22 @@ namespace MusicAppApi.Repository
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        private string GenerateHash(string input)
+        {
+            using (SHA1Managed sha1 = new SHA1Managed())
+            {
+                var hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(input));
+                var sb = new StringBuilder(hash.Length * 2);
+
+                foreach (byte b in hash)
+                {
+                    sb.Append(b.ToString("x2"));
+                }
+
+                return sb.ToString();
             }
         }
     }

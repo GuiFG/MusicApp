@@ -1,0 +1,31 @@
+@page 
+@model MusicAppWeb.Pages.Upload.MusicUploadModel
+
+<link rel="stylesheet" href="~/css/Musics/upload.css">
+<div class="container" data-aos="fade-down" data-aos-duration="600">
+	<form id="formUpload" method="post" enctype="multipart/form-data"> 
+		<h2 class="ml-2 text-center mb-3">Upload</h2>
+		<div class="form-group">
+			<div class="input-group">
+				<input type="file" class="form-control" asp-for="@Model.Upload" id="music" required/>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="input-group">
+				<input type="text" class="form-control" id="artist" placeholder="Artist" required/>
+				<input type="text" class="form-control" id="album" placeholder="Album"/>
+			</div>
+		</div>
+		<div class="form-group">
+			<textarea id="lyric" class="form-control" rows="5" placeholder="Lyrics" required></textarea>
+		</div>
+		<button type="button" id="btnSubmit" class="btn btn-primary btn-block btn-lg">Submit</button>
+	</form>
+</div>
+
+
+<partial name="_SideBar"></partial>
+
+@section Scripts {
+	<script src="~/js/Music/upload.js"></script>
+}

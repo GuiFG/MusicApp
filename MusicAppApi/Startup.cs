@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -9,6 +10,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using MusicAppApi.Services;
 using MusicAppApi.Repository;
+using MusicAppApi.Contracts;
+
 
 namespace MusicAppApi
 {
@@ -28,6 +31,9 @@ namespace MusicAppApi
                 options.UseSqlServer(Configuration.GetConnectionString("DbMusicApp")));
 
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IMusicRepository, MusicRepository>();
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddControllers();
 

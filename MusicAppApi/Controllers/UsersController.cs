@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MusicAppApi.Services;
-using MusicAppApi.Entities;
+using MusicAppApi.Model;
+using MusicAppApi.DTOs;
+using MusicAppApi.Contracts;
 using Microsoft.AspNetCore.Authorization;
-
+using AutoMapper;
 
 namespace MusicAppApi.Controllers
 {
@@ -13,16 +15,21 @@ namespace MusicAppApi.Controllers
     [Route("[controller]")]
     public class UsersController : ControllerBase
     {
+        private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
-        public UsersController(IUserRepository userRepository)
+        public UsersController(
+            IMapper mapper,
+            IUserRepository userRepository
+        )
         {
+            _mapper = mapper;
             _userRepository = userRepository;
         }
 
         [HttpPost]
         [Route("login")]
         [AllowAnonymous]
-        public async Task<ActionResult<dynamic>> Authenticate([FromBody] User user)
+        public async Task<ActionResult<UserDTO>> Authenticate([FromBody] User user)
         {
             try
             {
@@ -31,16 +38,10 @@ namespace MusicAppApi.Controllers
                 if (u == null)
                     return NotFound(new { message = "Username or password is invalid" });
                 
-                var token = TokenService.GenerateToken(u);
+                var userDto = _mapper.Map<UserDTO>(u);
+                userDto.Token = TokenService.GenerateToken(u);
 
-                u.Password = "";
-
-                return new 
-                {
-                    user = u,
-                    token = token
-                };
-
+                return userDto;
             }
             catch (Exception ex)
             {

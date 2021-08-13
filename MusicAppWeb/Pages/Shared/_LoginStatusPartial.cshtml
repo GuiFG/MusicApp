@@ -1,0 +1,13 @@
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="float-right" data-aos="fade-left" data-aos-duration="600">
+        <form method="post" class="form-inline" asp-page="/Login/SignOut">
+            @User.Identity.Name
+            <button type="submit" class="ml-2 btn btn-link">Logout</button>
+        </form>
+    </div>
+}
+else 
+{
+    <a class="btn btn-link" asp-page="/Login/SignIn"></a>
+}

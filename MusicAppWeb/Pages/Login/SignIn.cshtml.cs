@@ -29,11 +29,9 @@ namespace MusicAppWeb.Pages
         public async Task<IActionResult> OnPostAsync()
         {
             var userAuthenticated = await _repoUser.Authenticate(user);
-            Console.WriteLine("oi");
 
             if (userAuthenticated != null)
             {
-                Console.WriteLine("autenticado");
                 var claims = new List<Claim> {
                     new Claim(ClaimTypes.Name, userAuthenticated.Username),
                     new Claim(ClaimTypes.Role, userAuthenticated.Role),

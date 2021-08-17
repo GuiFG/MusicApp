@@ -47,7 +47,7 @@ namespace MusicAppApi.Controllers
                 if (m == null)
                     return Problem();
                     
-                return Ok();
+                return Ok(m);
             }
             catch (Exception ex)
             {

@@ -39,7 +39,7 @@ namespace MusicAppWeb.Pages.Upload
                 if (musicUploaded != null)
                     TempData["messageSuccess"] = "Upload completed.";
                 else 
-                    TempData["messageSuccess"] = "Error in upload music.";
+                    TempData["messageError"] = "Error in upload music.";
 
                 return Page();
             }
